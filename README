@@ -1,0 +1,41 @@
+ Leidžiant SwingMain klasę, ji turėtų veikti iš visų IDE (nieko nereikia keisti - tiesiog spauskite Run).
+ 
+ Tačiau konsolinė žaidimo versija (t.y. ši, Main klasė) naudoja specialius simbolius kursoriaus valdymui,
+   todėl NEVEIKS leidžiant paprastai iš Eklipsės (Eklipsės konsolėje rašys keistus simbolius)
+   
+ Tam, kad konsolinis Pacman'as teisingai pasileidinėtų iš Eclipsės, reikia ją specialiai sukonfigūruoti.
+ 
+ 1. Raskite tą vietą diske, iš kur Eklipsė paleidžia Javą (pasitikslinkite Eklipsės JRE nustatymus).
+    Mano Ubuntu versijoje, tai /usr/lib/jvm/java-7-oracle/bin/
+    Mano Windows 8 aplinkoje, tai C:/Program Files/Java/jre7/bin/
+     
+ 2. Sukurkite toje direktorijoje tuščią failą, 
+    Linux: pavadinkite šį failą gjava
+    Windows: pavadinkite šį failą gjava.bat
+ 
+ 3. Įklijuokite ten šį tekstą:
+Linux:
+#!/bin/sh
+gnome-terminal -x java $*
+
+Windows:
+start java.exe %*
+
+ 4. Linux: Nustatykite tam failui vykdymo teises (permissions execute)
+ 
+ 5. Eklipsėje reikės sukurti specialius 'Run as Java application' nustatymus:
+ 
+ Run -> Run configurations ... -> 
+ 
+ 	a) kairiame sąraše pasirinkite "Java Application" vykdymo konfigūraciją, 
+ 	   ir sukurkite jai vaiką, pavadinimu Terminal Main
+ 
+ 	b) pasirinkite tą sukurtąją Terminal Main konfigūraciją:
+ 
+ 	c) Common skiltyje (pati dešiniausia), raskite varnelę "Allocate console" ir ją nuimkite (uncheck).
+ 
+ 	d) JRE skiltyje (trečia iš kairės), pasirinkite "Alternate JRE", tada "Java Executable" pasirinkite "Alternate", ir įrašykite gjava
+ 
+ 6. Kai leisite programą iš Eklipsės, įsitikinkite kad leidžiat Terminal Main konfigūraciją. 
+    Eklipsė startuos atskirą gnome-terminal procesą ir perduos visus parametrus Java'os virtualiai mašinai --
+    t.y. ,programa pasileidinės atskirame "juodame" lange, o nebe Eklipsės konsolėje.
